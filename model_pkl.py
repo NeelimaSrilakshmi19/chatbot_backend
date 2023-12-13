@@ -1,6 +1,7 @@
 import pickle
 from sklearn.metrics.pairwise import linear_kernel
 import pandas as pd
+df = pd.read_csv('abc.csv')
 
 # Function to load the model and vectorizer using pickle
 def load_model_and_vectorizer_pickle(model_filename, vectorizer_filename):
