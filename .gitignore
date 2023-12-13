@@ -1,0 +1,17 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.env
+
+# Ignore abc.csv file in the root level
+abc.csv
+
+#trained
+logistic_regression_model.pkl
+count_vectorizer.pkl
+
+# Ignore Python virtual environment folder
+env/
