@@ -56,13 +56,17 @@ def retrieve_documents_with_summary_loaded_pickle(user_query, model, vectorizer,
     return top_summary, top_topic
 
 # Example of how to use the loaded model and vectorizer
-loaded_classifier, loaded_vectorizer = load_model_and_vectorizer_pickle('logistic_regression_model.pkl', 'count_vectorizer.pkl')
-user_query = "what is tourism"
-df = pd.read_csv('abc.csv')
-top_summary, top_topic = retrieve_documents_with_summary_loaded_pickle(user_query, loaded_classifier, loaded_vectorizer, df)
+#loaded_classifier, loaded_vectorizer = load_model_and_vectorizer_pickle('logistic_regression_model.pkl', 'count_vectorizer.pkl')
+#user_query = "what is tourism"
+#top_summary = retrieve_documents_with_summary_loaded_pickle(user_query, loaded_classifier, loaded_vectorizer, df)
+
 
 # Print the result
-print("Top Document Summary:")
-print(top_summary)
-print("Top Topic:")
-print(top_topic)
+#print("Top Document Summary:")
+#print(top_summary)
+
+def query_reply(inp):
+    loaded_classifier, loaded_vectorizer = load_model_and_vectorizer_pickle('logistic_regression_model.pkl', 'count_vectorizer.pkl')
+    user_query = inp
+    summ,topc = retrieve_documents_with_summary_loaded_pickle(user_query, loaded_classifier, loaded_vectorizer,df)
+    return summ,topc

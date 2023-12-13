@@ -8,8 +8,8 @@ from model_pkl import *
 import random
 from dialochat import *
 from keytrain import *
-from dotenv import load_dotenv
-import os
+#from dotenv import load_dotenv
+#import os
 
 def prepro(s0):
     s = re.sub(r"[-–‐—]", ' ', s0)
@@ -26,7 +26,7 @@ import torch
 
 #chat---------------------------------------------
 app = Flask(__name__)
-load_dotenv()
+#load_dotenv()
 CORS(app)  # Enable CORS for all routes
 @app.route('/chat', methods=['POST'])
 def hello():
