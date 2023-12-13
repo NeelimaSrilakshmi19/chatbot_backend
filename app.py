@@ -34,8 +34,10 @@ def hello():
     request_promptt=data['message']
     request_prompt = prepro(request_promptt)
     #if(classify(request_prompt)):
+    #if False:
     if not is_query_chitchat(request_prompt):#keytrain
         #query - traintry
+        #print("is query")
         bot_reply, topic = query_reply(request_prompt)
     else:
         #chat - dialochat

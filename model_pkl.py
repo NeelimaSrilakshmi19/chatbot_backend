@@ -1,7 +1,15 @@
-import pickle
-from sklearn.metrics.pairwise import linear_kernel
 import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics.pairwise import linear_kernel
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+import pickle
 df = pd.read_csv('abc.csv')
+
+# Encode labels
+label_encoder = LabelEncoder()
+df['topic_label'] = label_encoder.fit_transform(df['topic'])
 
 # Function to load the model and vectorizer using pickle
 def load_model_and_vectorizer_pickle(model_filename, vectorizer_filename):
@@ -22,7 +30,7 @@ def extractive_summarization(document, num_sentences=1):
 def retrieve_documents_with_summary_loaded_pickle(user_query, model, vectorizer, df, num_documents=10, num_summary_sentences=2):
     query_vector = vectorizer.transform([user_query])
     predicted_topic = model.predict(query_vector)[0]
-    topic_documents = df[df['topic'] == predicted_topic]
+    topic_documents = df[df['topic_label'] == predicted_topic]
 
     # Check if there are no documents for the predicted topic
     if topic_documents.empty:
@@ -44,16 +52,19 @@ def retrieve_documents_with_summary_loaded_pickle(user_query, model, vectorizer,
         num_documents = len(cosine_similarities)
 
     top_document_indices = cosine_similarities.argsort()[:-num_documents-1:-1]
+    #print("check 1")
     top_summary = None
     top_topic = None
 
     for idx in top_document_indices:
+        #print("check 2")    
         doc_info = topic_documents.iloc[idx]['summary']
         if top_summary is None:
+            #print("check 3")
             top_summary = extractive_summarization(doc_info, num_sentences=num_summary_sentences)
             top_topic = topic_documents.iloc[idx]['topic']
             #print(top_topic)
-
+        #print("check 4")
     return top_summary, top_topic
 
 # Example of how to use the loaded model and vectorizer
